@@ -124,9 +124,9 @@ RUN DEBIAN_FRONTEND=noninteractive \
 cd /tmp \
 && wget -q https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-arm64.deb \
 
-+&& dpkg -i pandoc-2.13-1-arm64.deb \
+&& dpkg -i pandoc-2.13-1-arm64.deb \
 
-+&& rm pandoc-2.13-1-arm64.deb \
+&& rm pandoc-2.13-1-arm64.deb \
 && sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read | write" pattern="PDF" \/>/' /etc/ImageMagick-6/policy.xml \
 && cd /opt \
 && wget -O Python-3.8.10.tgz https://www.python.org/ftp/python/3.8.10/Python-3.8.10.tgz \
