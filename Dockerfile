@@ -1,4 +1,4 @@
-FROM debian:testing
+FROM ubuntu:21.10
 RUN DEBIAN_FRONTEND=noninteractive \
 bash -c \
 'echo -e "deb http://deb.debian.org/debian testing main contrib\n\
