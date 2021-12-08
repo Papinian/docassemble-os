@@ -1,11 +1,13 @@
 FROM ubuntu:21.10
 RUN DEBIAN_FRONTEND=noninteractive \
-bash -c \
-'echo -e "deb http://deb.debian.org/debian testing main contrib\n\
-deb http://deb.debian.org/debian testing-updates main" > /etc/apt/sources.list\
-&& apt-get -y update && apt-get -y upgrade'
+apt-get -y update \
+&& apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive \
-apt-get -q -y install \
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections \
+&& apt-get -q -y install language-pack-en \
+&& apt-get -q -y install ttf-mscorefonts-installer \
+&& apt-get -q -y install \
+apt-utils \
 apt-utils \
 tzdata \
 wget \
