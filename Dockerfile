@@ -4,8 +4,10 @@ apt-get -y update \
 && apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive \
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections \
+&& apt-get -q -y install language-pack-en \
 && apt-get -q -y install ttf-mscorefonts-installer \
 && apt-get -q -y install \
+apt-utils \
 apt-utils \
 tzdata \
 wget \
@@ -92,6 +94,7 @@ libaudio-flac-header-perl \
 ffmpeg \
 tesseract-ocr-all \
 libtesseract-dev \
+ttf-mscorefonts-installer \
 fonts-ebgaramond-extra \
 ghostscript \
 fonts-liberation \
@@ -118,25 +121,18 @@ libbz2-dev \
 libexpat1-dev \
 liblzma-dev \
 libffi-dev \
-uuid-dev \
-unoconv \
-&& apt-get -y remove libreoffice-report-builder \
-&& apt-get -y autoremove
-RUN DEBIAN_FRONTEND=noninteractive \
-bash -c \
-cd /tmp \
-&& wget -q https://github.com/jgm/pandoc/releases/download/2.18/pandoc-2.18-1-arm64.deb \
-&& dpkg -i pandoc-2.18-1-arm64.deb \
-&& rm pandoc-2.18-1-arm64.deb
+uuid-dev
 RUN DEBIAN_FRONTEND=noninteractive \
 cd /tmp \
+&& wget -q https://github.com/jgm/pandoc/releases/download/2.13/pandoc-2.13-1-arm64.deb \
+&& dpkg -i pandoc-2.13-1-arm64.deb \
+&& rm pandoc-2.13-1-arm64.deb \
 && sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read | write" pattern="PDF" \/>/' /etc/ImageMagick-6/policy.xml \
-&& sed -i 's/^#PATH/PATH/' /etc/crontab \
 && cd /opt \
-&& wget -O Python-3.8.12.tgz https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz \
-&& tar -zxf Python-3.8.12.tgz \
-&& rm Python-3.8.12.tgz \
-&& cd Python-3.8.12 \
+&& wget -O Python-3.8.10.tgz https://www.python.org/ftp/python/3.8.10/Python-3.8.10.tgz \
+&& tar -zxf Python-3.8.10.tgz \
+&& rm Python-3.8.10.tgz \
+&& cd Python-3.8.10 \
 && ./configure --enable-shared --prefix=/usr \
 && make \
 && make altinstall \
@@ -169,13 +165,14 @@ bash -c \
 "cd /tmp \
 && echo '{ \"args\": [\"--no-sandbox\"] }' > ~/puppeteer-config.json \
 && touch ~/.profile \
-&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash \
+&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash \
 && cd ~ \
 && source ~/.profile \
-&& nvm install 14.18.1 \
+&& nvm install 12.6.0 \
 && npm install mermaid.cli@0.5.1 \
 && rm ~/.profile"
 USER root
-RUN echo "host   all   all  0.0.0.0/0   md5" >> /etc/postgresql/13/main/pg_hba.conf \
+RUN DEBIAN_FRONTEND=noninteractive TERM=xterm \
+&& echo "host   all   all  0.0.0.0/0   md5" >> /etc/postgresql/13/main/pg_hba.conf \
 && echo "listen_addresses = '*'" >> /etc/postgresql/13/main/postgresql.conf
 CMD ["bash"]
