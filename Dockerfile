@@ -4,7 +4,6 @@ apt-get -y update \
 && apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive \
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections \
-&& apt-get -q -y install language-pack-en \
 && apt-get -q -y install ttf-mscorefonts-installer \
 && apt-get -q -y install \
 apt-utils \
