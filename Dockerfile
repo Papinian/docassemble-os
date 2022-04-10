@@ -125,7 +125,8 @@ unoconv \
 && apt-get -y autoremove
 RUN DEBIAN_FRONTEND=noninteractive \
 bash -c \
-cd /tmp && wget -q https://github.com/jgm/pandoc/releases/download/2.17.1.1/pandoc-2.17.1.1-1-arm64.deb \
+cd /tmp \
+wget -q https://github.com/jgm/pandoc/releases/download/2.17.1.1/pandoc-2.17.1.1-1-arm64.deb \
 dpkg -i pandoc-2.17.1.1-1-arm64.deb \
 rm pandoc-2.17.1.1-1-arm64.deb \
 RUN DEBIAN_FRONTEND=noninteractive \
