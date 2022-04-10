@@ -126,9 +126,9 @@ unoconv \
 RUN DEBIAN_FRONTEND=noninteractive \
 bash -c \
 cd /tmp \
-wget -q https://github.com/jgm/pandoc/releases/download/2.17.1.1/pandoc-2.17.1.1-1-arm64.deb \
-dpkg -i pandoc-2.17.1.1-1-arm64.deb \
-rm pandoc-2.17.1.1-1-arm64.deb \
+&& wget -q https://github.com/jgm/pandoc/releases/download/2.17.1.1/pandoc-2.17.1.1-1-arm64.deb \
+&& dpkg -i pandoc-2.17.1.1-1-arm64.deb \
+&& rm pandoc-2.17.1.1-1-arm64.deb
 RUN DEBIAN_FRONTEND=noninteractive \
 cd /tmp \
 && sed -i 's/<policy domain="coder" rights="none" pattern="PDF" \/>/<policy domain="coder" rights="read | write" pattern="PDF" \/>/' /etc/ImageMagick-6/policy.xml \
