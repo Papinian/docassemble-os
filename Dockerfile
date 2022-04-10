@@ -126,7 +126,7 @@ unoconv \
 RUN DEBIAN_FRONTEND=noninteractive \
 bash -c \
 cd /tmp \
-&& wget -q https://github.com/jgm/pandoc/releases/download/2.18/pandoc-2.18-1-amd64.deb\
+&& wget -q https://github.com/jgm/pandoc/releases/download/2.18/pandoc-2.18-1-amd64.deb \
 && dpkg -i pandoc-2.18-1-amd64.deb \
 && rm pandoc-2.18-1-amd64.deb
 RUN DEBIAN_FRONTEND=noninteractive \
